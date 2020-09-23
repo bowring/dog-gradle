@@ -21,7 +21,9 @@ public class Dog implements Serializable, Comparable<Dog> {
     private String owner;
     private String breed;
     private String sex;
-    LocalDate birthdate;
+    private int birthMonth;
+    private int birthDay;
+    private int birthYear;
 
     public Dog() {
         new Dog("Unnamed", "Free", "Mutt", "Unknown", 1, 1, 2020);
@@ -32,10 +34,10 @@ public class Dog implements Serializable, Comparable<Dog> {
         this.breed = owner;
         this.breed = breed;
         this.sex = sex;
-        LocalDate date = LocalDate.of(year, month, day);
-        this.birthdate = date;
+        this.birthMonth = month;
+        this.birthDay = day;
+        this.birthYear = year;
     }
-
 
     public String prettyPrint() {
         return name + " - " + breed + " - " + owner;
@@ -56,7 +58,9 @@ public class Dog implements Serializable, Comparable<Dog> {
         retVal = retVal && breed.equals(otherDog.getBreed());
         retVal = retVal && owner.equals(otherDog.getOwner());
         retVal = retVal && sex.equals(otherDog.getSex());
-        retVal = retVal && birthdate.equals(otherDog.getBirthDate());
+        retVal = retVal && birthMonth == otherDog.getBirthMonth();
+        retVal = retVal && birthDay == otherDog.getBirthDay();
+        retVal = retVal && birthYear == otherDog.getBirthYear();
 
         return retVal;
     }
@@ -93,30 +97,49 @@ public class Dog implements Serializable, Comparable<Dog> {
         this.sex = newSex;
     }
 
-    public LocalDate getBirthDate() {
-        return birthdate;
+    public int getBirthMonth() {
+        return birthMonth;
     }
 
-    public void setBirthDate(int month, int day, int year) {
-        LocalDate newBirthDate = LocalDate.of(year, month, day);
-        this.birthdate = newBirthDate;
+    public void setBirthMonth(int month) {
+        this.birthMonth = month;
     }
 
-    public static void serializeToCSV(Dog dog) throws IOException {   // argument output file, and dog to serialize
-        PrintWriter outputWriter = new PrintWriter("file2.csv","UTF-8");
-        outputWriter.write(dog.name + ", ");
-        outputWriter.write(dog.breed + ", ");
-        outputWriter.write(dog.sex + ", ");
-        outputWriter.write(dog.owner + ", ");
-        outputWriter.write(String.valueOf(dog.birthdate));
+    public int getBirthDay() {
+        return birthDay;
+    }
 
+    public void setBirthDay(int day) {
+        this.birthDay = day;
+    }
+
+    public int getBirthYear() {
+        return birthYear;
+    }
+
+    public void setBirthYear(int year) {
+        this.birthYear = year;
+    }
+
+    public static void serializeToCSV(Dog dog, String filename) throws IOException {   // argument output file, and dog to serialize
+        PrintWriter outputWriter = new PrintWriter(filename,"UTF-8");
+        BufferedWriter buffer = new BufferedWriter(outputWriter);
+        buffer.write(dog.name + ", ");
+        buffer.write(dog.breed + ", ");
+        buffer.write(dog.sex + ", ");
+        buffer.write(dog.owner + ", ");
+        buffer.write(dog.birthMonth + ", ");
+        buffer.write(dog.birthDay + ", ");
+        buffer.write(dog.birthYear + "");
+
+        buffer.close();
         outputWriter.close();
     }
 
-    public static Dog deserializeFromCSV() throws IOException { // return a Dog, argument input file
+    public static Dog deserializeFromCSV(String filename) throws IOException { // return a Dog, argument input file
 
         Dog dog = new Dog();
-        File csv = new File("file2.csv");
+        File csv = new File(filename);
 
         String cvsSplitBy = ", ";
         BufferedReader br = new BufferedReader(new FileReader(csv));
@@ -131,8 +154,10 @@ public class Dog implements Serializable, Comparable<Dog> {
         // System.out.println(dog.sex);
         dog.owner = dogcsv[3];
         // System.out.println(dog.owner);
-        dog.birthdate = LocalDate.parse(dogcsv[4]);
+        dog.birthMonth = Integer.parseInt(dogcsv[4]);
         // System.out.println(dog.birthdate);
+        dog.birthDay = Integer.parseInt(dogcsv[5]);
+        dog.birthYear = Integer.parseInt(dogcsv[6]);
 
         return dog;
     }

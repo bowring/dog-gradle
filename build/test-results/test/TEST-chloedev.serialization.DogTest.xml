@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="chloedev.serialization.DogTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2020-09-16T21:41:16" hostname="MacBook-Pro.lan" time="0.007">
+<testsuite name="chloedev.serialization.DogTest" tests="4" skipped="0" failures="0" errors="0" timestamp="2020-09-23T04:10:16" hostname="MacBook-Pro.lan" time="0.008">
   <properties/>
-  <testcase name="testSerializeToCsv" classname="chloedev.serialization.DogTest" time="0.007"/>
+  <testcase name="testSerializeBinary" classname="chloedev.serialization.DogTest" time="0.004"/>
+  <testcase name="testSerializeBinaryBad" classname="chloedev.serialization.DogTest" time="0.002"/>
+  <testcase name="testSerializeToCsv" classname="chloedev.serialization.DogTest" time="0.001"/>
+  <testcase name="testSerializeToCsvBad" classname="chloedev.serialization.DogTest" time="0.0"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

@@ -22,14 +22,17 @@ public class DogDriver {
         dog1.setBreed("goldendoodle");
         dog1.setOwner("Chloe");
         dog1.setSex("boy");
-        dog1.setBirthDate(05, 31, 2016);
+        dog1.setBirthMonth(5);
+        dog1.setBirthDay(30);
+        dog1.setBirthYear(2016);
+
 
         String csvfilename = "file.csv";
 
-        serializeToCSV(dog1);
+        serializeToCSV(dog1, csvfilename);
         System.out.println("Serialized!");
 
-        deserializeFromCSV();
+        deserializeFromCSV(csvfilename);
         System.out.println("And now deserialized!");
 
         String binfilename = "file2.ser";
